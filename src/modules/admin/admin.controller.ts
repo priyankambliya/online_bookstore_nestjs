@@ -31,7 +31,34 @@ export class AdminController {
   async createBook(@Res() response, @Body() book: Book) {
     try {
       const bookDetail = await this.adminService.bookCreate(book);
-      return response.json(bookDetail);
+      if(!bookDetail) throw "book not created.."
+      return response.json({message:"book created.."});
+    } catch (error) {
+      return response.json({ error });
+    }
+  }
+
+  @Roles(['ADMIN'])
+  @UseGuards(AuthGuard)
+  @Post('book/book-update')
+  async update(@Res() response, @Body() book:any) {
+    try {
+      const bookDetail = await this.adminService.updateBook(book);
+      if(!bookDetail) throw "book not updated.."
+      return response.json({message:"book updated.."});
+    } catch (error) {
+      return response.json({ error });
+    }
+  }
+
+  @Roles(['ADMIN'])
+  @UseGuards(AuthGuard)
+  @Post('book/update-status')
+  async updateStatus(@Res() response, @Body() book:any) {
+    try {
+      const message = await this.adminService.updateBookStatus(book);
+      if(!message) throw "book status not updated.."
+      return response.json({message:"book status updated.."});
     } catch (error) {
       return response.json({ error });
     }

@@ -65,4 +65,32 @@ export class AdminService {
       throw error;
     }
   }
+
+  async updateBook(book:any): Promise<Book> {
+    try {      
+        const {name,author,price,bookId} = book
+        const updatedBook = await this.bookModel.findByIdAndUpdate(bookId,{
+          name,
+          author,
+          price
+        })
+        if(!updatedBook) throw "book not updated.."
+      return updatedBook
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async updateBookStatus(bookData:any): Promise<string> {
+    try {     
+        const { bookId,status } = bookData 
+        const book = await this.bookModel.findByIdAndUpdate(bookId,{
+          activeStatus:status
+        })
+        if(!book) throw "book status not changed.."
+      return "book status changed.."
+    } catch (error) {
+      throw error;
+    }
+  }
 }
