@@ -1,0 +1,5 @@
+const data = {
+    PORT:3333,
+    SECRET:'MYNAMEDSUSIODJSONWEBTOKENDATAOFJSDFOISF'
+}
+export default data
