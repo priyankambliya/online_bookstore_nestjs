@@ -9,18 +9,21 @@ export class UserService {
     constructor(
         @InjectModel(Book.name) private readonly bookModel: Model<BookDocument>
     ) { }
-    async allBooksDetails(): Promise<Book[]> {
+    async allBooksDetails(): Promise<any> {
         try {
             const books = await this.bookModel.find()
             if (!books) throw "all books not found.."
-            const bookDto = new BookDto({
-                _id: books._id,
-                name: books.name,
-                author: books.author,
-                price: books.price,
-            });
+            const bookData = books.map(book => {
+                const bookDto = new BookDto({
+                    _id: book._id,
+                    name: book.name,
+                    author: book.author,
+                    price: book.price,
+                });
+                // return bookDto
+            })
 
-            return bookDto
+            return bookData
         } catch (error) {
             throw error
         }
