@@ -9,20 +9,21 @@ import { Admin, AdminDocument } from 'src/schemas/admin.schema';
 @Injectable()
 export class adminAuth implements NestMiddleware {
   constructor(
-    @InjectModel(Admin.name) private readonly adminModel:Model<AdminDocument>
-  ){}
+    @InjectModel(Admin.name) private readonly adminModel: Model<AdminDocument>
+  ) { }
   async use(req: Request, res: Response, next: NextFunction) {
     try {
       const authorizationToken = req.headers.authorization;
       if (!authorizationToken) throw 'auth token not found..';
       const token = authorizationToken.split(' ')[1];
       // verify the jwt here...
-      const decodedToken = jwt.verify( token , data.SECRET )
-      const user = await this.adminModel.findOne({email:decodedToken.email})
+      const decodedToken = await jwt.verify(token, data.SECRET)
+      const user = await this.adminModel.findOne({ email: decodedToken.email })
       req.app.locals.admin = user
       next();
     } catch (error) {
-      throw error;
+      return res
+        .json(error.message)
     }
   }
 }

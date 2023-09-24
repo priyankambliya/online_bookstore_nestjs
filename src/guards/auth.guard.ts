@@ -10,10 +10,9 @@ import { Roles } from 'src/decorators/role.decorator';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  constructor(private reflector: Reflector) {}
+  constructor(private reflector: Reflector) { }
   canActivate(context: ExecutionContext): boolean {
     const request = context.switchToHttp().getRequest();
-
     const roles = this.reflector.getAllAndOverride(Roles, [
       context.getHandler(),
       context.getClass(),
