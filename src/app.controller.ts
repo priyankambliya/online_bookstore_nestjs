@@ -1,6 +1,6 @@
-import { Body, Controller, Post, Res } from '@nestjs/common';
-import { AppService } from './app.service';
-import { User } from './schemas/user.schema';
+import { Body, Controller, Post, Res } from '@nestjs/common'
+import { AppService } from './app.service'
+import { User } from './schemas/user.schema'
 
 @Controller()
 export class AppController {
@@ -15,8 +15,8 @@ export class AppController {
 
   @Post('login')
   async login(@Res() response, @Body() user: User) {
-    await this.appService.loginUser(user)
+    const token = await this.appService.loginUser(user)
     return response
-      .json({ message: "user login..." })
+      .json({ token })
   }
 }
