@@ -51,12 +51,13 @@ export class AdminService {
 
   async bookCreate(book: Book): Promise<Book> {
     try {
-      const { name,author,price } = book;
+      const { name,author,price,numbersOfBooks } = book;
       
         const createBook = await this.bookModel.create({
             name,
             author,
-            price
+            price,
+            numbersOfBooks
         })
       if(!createBook) throw "book not created..."
       

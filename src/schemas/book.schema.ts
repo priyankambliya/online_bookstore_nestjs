@@ -32,6 +32,9 @@ export class Book {
   })
   activeStatus: number;
 
+  @Prop()
+  numbersOfBooks: number;
+
   @Prop({ default: now() })
   createdAt: Date;
 
