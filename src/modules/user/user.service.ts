@@ -20,7 +20,7 @@ export class UserService {
                     author: book.author,
                     price: book.price,
                 });
-                // return bookDto
+                return bookDto
             })
 
             return bookData
